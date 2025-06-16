@@ -1,7 +1,9 @@
 <template>
-  <div id="recording" class="w-screen h-screen overflow-hidden">
+  <div id="recording" class="w-screen h-screen">
     <div class="w-full h-full flex flex-col justify-center items-center">
-      <div class="w-full h-[60px] flex justify-between items-center px-6">
+      <div
+        class="w-full h-[60px] flex justify-between items-center px-6 border-b border-b-gray-200 bg-gray-50"
+      >
         <div class="flex justify-start items-center gap-4">
           <router-link to="/live">
             <ToHomepageBtn />
@@ -15,7 +17,7 @@
           <FileDoneOutlined /><span>保存</span>
         </button>
       </div>
-      <div class="flex-1 w-full">
+      <div class="flex-1 w-full flex">
         <div
           id="left"
           class="w-[50%] h-full max-h-[calc(100vh-60px)] bg-slate-50 flex flex-col justify-center items-start p-4 px-8 gap-4"
@@ -50,19 +52,25 @@
             </div>
             <div class="flex gap-2">
               <button
-                class="bg-white w-[40px] h-[30px] rounded-md text-red-500 hover:bg-red-500 hover:text-white pb-2"
+                class="bg-white w-[50px] h-[40px] rounded-md text-red-500 hover:bg-red-500 hover:text-white pb-2"
               >
-                <PoweroffOutlined />
+                <PoweroffOutlined class="text-[14px]" />
               </button>
               <button
-                class="w-[40px] h-[30px] rounded-md text-[#615ced] bg-white hover:text-white hover:bg-[#615ced] pb-2"
+                class="w-[50px] h-[40px] rounded-md text-[#615ced] bg-white hover:text-white hover:bg-[#615ced] pb-2"
               >
-                <PlayCircleOutlined />
+                <PlayCircleOutlined class="text-[14px]" />
               </button>
             </div>
           </div>
         </div>
-        <div id="right" class="w-[50%] h-full"></div>
+        <div id="right" class="w-[50%] h-full p-5">
+          <div class="flex justify-start items-center gap-4 text-[16px] pb-2">
+            <button>导读</button>
+            <button>笔记</button>
+          </div>
+          <RichText />
+        </div>
       </div>
     </div>
   </div>
@@ -79,6 +87,7 @@ import Speaker from "../components/recording/Speaker.vue";
 import SpeakingBox from "../components/recording/SpeakingBox.vue";
 import VoiceToTextBar from "../components/recording/VoiceToTextBar.vue";
 import { ref, onMounted, onUnmounted } from "vue";
+import RichText from "../components/recording/RichText.vue";
 
 const imageUrl =
   "https://img.alicdn.com/imgextra/i1/O1CN01AV7f1E1kwAtJHELpc_!!6000000004747-2-tps-5760-64.png";
