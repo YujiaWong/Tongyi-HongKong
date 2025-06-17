@@ -19,7 +19,7 @@ export default {
       // 初始化 Quill 编辑器
       new Quill(editor.value, {
         theme: "snow", // 使用 snow 主题
-        placeholder: "请输入内容...",
+        placeholder: "开始记录你的灵感和思考...",
         modules: {
           toolbar: [
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -49,12 +49,9 @@ export default {
 <style scoped>
 .quill-editor {
   width: 100%;
-  height: 650px; /* 根据需要调整高度 */
+  height: 650px;
 
   border: none !important;
-}
-.ql-toolbar.ql-snow {
-  border: none !;
 }
 .quill-editor :deep(.ql-container.ql-snow) {
   border: none;

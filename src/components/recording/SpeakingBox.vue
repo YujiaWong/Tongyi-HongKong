@@ -1,5 +1,5 @@
 <template>
-  <div id="SpeakingBox" class="w-full">
+  <div id="SpeakingBox" class="w-full mb-2">
     <div class="w-full flex flex-col justify-center items-center gap-2">
       <div class="w-full flex justify-between items-center">
         <div class="flex justify-start items-center text-gray-500 gap-2">
@@ -9,18 +9,24 @@
         </div>
         <div class="flex justify-start items-center gap-4">
           <button>
-            <PushpinOutlined class="bg-blue-300 p-1 rounded-full !text-white" />
-          </button>
-          <button>
-            <QuestionOutlined
-              class="bg-pink-300 p-1 rounded-full !text-white"
+            <PushpinOutlined
+              class="bg-blue-300 p-1 rounded-full !text-white text-xs"
             />
           </button>
           <button>
-            <CheckOutlined class="bg-yellow-300 p-1 rounded-full !text-white" />
+            <QuestionOutlined
+              class="bg-pink-300 p-1 rounded-full !text-white text-xs"
+            />
           </button>
           <button>
-            <CloseOutlined class="bg-gray-300 p-1 rounded-full !text-white" />
+            <CheckOutlined
+              class="bg-yellow-300 p-1 rounded-full !text-white text-xs"
+            />
+          </button>
+          <button>
+            <CloseOutlined
+              class="bg-gray-300 p-1 rounded-full !text-white text-xs"
+            />
           </button>
         </div>
       </div>
