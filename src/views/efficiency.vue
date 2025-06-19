@@ -1,5 +1,5 @@
 <template>
-  <div id="efficiency" class="w-screen h-screen relative">
+  <div id="efficiency" class="w-screen h-full relative">
     <div class="w-full h-full flex flex-col justify-center items-center">
       <div
         class="w-full h-[60px] flex justify-between items-center px-6 border-b border-b-gray-200 bg-gray-50"
@@ -46,18 +46,24 @@
           class="w-[50%] h-full max-h-[calc(100vh-60px)] bg-slate-50 flex flex-col justify-center items-start p-4 px-8 gap-4"
         >
           <VoiceToTextBox />
-          <div class="w-full overflow-y-auto flex flex-col gap-5 h-[600px]">
+          <div
+            class="w-full flex-1 overflow-y-auto flex flex-col gap-5 h-[600px]"
+          >
             <Speaker />
-            <SpeakingBox />
           </div>
           <div
             class="flex justify-between items-center flex-1 w-full h-[100px]"
           >
-            <div class="flex gap-2"></div>
+            <div class="flex gap-2 w-full"><Player /></div>
           </div>
         </div>
-        <div id="right" class="w-[50%] h-full p-5">
-          <div class="flex justify-start items-center gap-4 text-[16px] pb-2">
+        <div
+          id="right"
+          class="w-[50%] h-full max-h-[calc(100vh-60px)] flex flex-col justify-center items-start p-4 px-8 gap-4"
+        >
+          <div
+            class="flex justify-start items-center gap-4 text-[16px] h-[50px] pb-2"
+          >
             <button
               @click="handleToggleIntro"
               class="focus:border-b-2 focus:border-b-[#615ced]"
@@ -77,9 +83,11 @@
               笔记
             </button>
           </div>
-          <RichText v-show="toggleIntro === 3" />
-          <Intro v-show="toggleIntro === 1" />
-          <MindMap v-show="toggleIntro === 2" />
+          <div class="overflow-y-auto w-full flex-1">
+            <RichText v-show="toggleIntro === 3" />
+            <EfficiencyIntro v-show="toggleIntro === 1" />
+            <MindMap v-show="toggleIntro === 2" />
+          </div>
         </div>
       </div>
     </div>
@@ -103,6 +111,8 @@ import RichText from "../components/recording/RichText.vue";
 import Intro from "../components/recording/Intro.vue";
 import CloseConfirm from "../components/wanxiang/CloseConfirm.vue";
 import MindMap from "../components/efficiency/MindMap.vue";
+import Player from "../components/efficiency/Player.vue";
+import EfficiencyIntro from "../components/efficiency/EfficiencyIntro.vue";
 
 let toggleIntro = ref(1); //true为导读intro，false为笔记note
 let togglePause = ref(false); //false为录音中，true为暂停
