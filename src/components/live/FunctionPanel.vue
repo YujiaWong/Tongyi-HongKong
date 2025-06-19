@@ -101,7 +101,7 @@
       </div>
 
       <div class="w-full flex justify-center mt-8">
-        <router-link to="live/recording">
+        <router-link to="/live/recording">
           <button
             class="bg-[#615ced] rounded-3xl p-3 w-[200px] text-white text-lg hover:bg-[#7d79f0]"
           >

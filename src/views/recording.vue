@@ -1,5 +1,5 @@
 <template>
-  <div id="recording" class="w-screen h-screen">
+  <div id="recording" class="w-screen h-screen relative">
     <div class="w-full h-full flex flex-col justify-center items-center">
       <div
         class="w-full h-[60px] flex justify-between items-center px-6 border-b border-b-gray-200 bg-gray-50"
@@ -51,10 +51,12 @@
             </div>
             <div class="flex gap-2">
               <button
+                @click="handleShowCloseRecording"
                 class="bg-white w-[50px] h-[40px] rounded-md text-red-500 hover:bg-red-500 hover:text-white pb-2"
               >
                 <PoweroffOutlined class="text-[14px] text-bold" />
               </button>
+
               <button
                 v-show="togglePause"
                 @click="
@@ -100,6 +102,40 @@
         </div>
       </div>
     </div>
+    <!-- 在你的弹窗外包裹一个遮罩层 -->
+    <div v-if="showCloseRecordingPopOut">
+      <div
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9998]"
+      >
+        <!-- 弹窗内容 -->
+        <div
+          id="endRecordingPopOut"
+          class="relative bg-white rounded-2xl shadow-lg w-[400px] p-6 z-[9999]"
+        >
+          <div class="flex justify-start items-start text-[16px] gap-2">
+            <ExclamationCircleFilled
+              :style="{ color: 'orange', paddingTop: '5px' }"
+            />
+            <p>确定结束录音吗？结束后无法在本记录继续录音</p>
+          </div>
+          <div class="flex justify-end gap-5 mt-4">
+            <button
+              class="w-[100px] p-2 rounded-3xl border border-gray-200 hover:bg-[#615ced22] hover:text-[#615ced]"
+              @click="handleUnShowCloseRecording"
+            >
+              再考虑下
+            </button>
+            <router-link to="/efficiency">
+              <button
+                class="w-[100px] p-2 bg-red-500 text-white rounded-3xl hover:bg-red-600"
+              >
+                确定退出
+              </button>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -117,6 +153,7 @@ import VoiceToTextBar from "../components/recording/VoiceToTextBar.vue";
 import { ref, onMounted, onUnmounted } from "vue";
 import RichText from "../components/recording/RichText.vue";
 import Intro from "../components/recording/Intro.vue";
+import CloseConfirm from "../components/wanxiang/CloseConfirm.vue";
 
 let toggleIntro = ref(true); //true为导读intro，false为笔记note
 let togglePause = ref(false); //false为录音中，true为暂停
@@ -137,6 +174,7 @@ const currentFrame = ref(0);
 const fps = 12;
 const isPlaying = ref(true); // 新增播放状态
 let animationInterval = null;
+let showCloseRecordingPopOut = ref(false);
 
 const startAnimation = () => {
   if (animationInterval) return; // 防止重复启动
@@ -176,7 +214,14 @@ const handleClick = () => {
   togglePause.value = !togglePause.value;
   toggleAnimation();
 };
+function handleShowCloseRecording() {
+  showCloseRecordingPopOut.value = true;
+}
+function handleUnShowCloseRecording() {
+  showCloseRecordingPopOut.value = false;
+}
 </script>
+
 <style scoped>
 .circle-viewport {
   width: 64px;

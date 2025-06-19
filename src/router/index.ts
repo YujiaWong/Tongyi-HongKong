@@ -54,6 +54,11 @@ const routes = [
     name: "discover",
     component: () => import("../views/discover.vue"),
   },
+  {
+    path: "/efficiency",
+    name: "efficiency",
+    component: () => import("../views/efficiency.vue"),
+  },
 ];
 
 const router = createRouter({

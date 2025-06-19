@@ -6,7 +6,9 @@
           <div
             class="flex justify-start items-center text-gray-500 gap-2 text-xs"
           >
-            <SmileOutlined class="text-xl" />
+            <SmileOutlined
+              class="text-[30px] !text-white rounded-full bg-gradient-to-br from-purple-500 to-blue-400"
+            />
             <span>发言人1</span>
             <span> 00:00</span
             ><button class="editNameBtn flex items-center">

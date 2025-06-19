@@ -223,24 +223,66 @@
         <button
           @mouseenter="toggleTooltip('team', true)"
           @mouseleave="toggleTooltip('team', false)"
-          class="teamHolder w-[20px] h-[20px] flex justify-start items-center rounded-md p-4 text-[#615ced] hover:bg-[rgb(68,51,255,0.1)] focus:!text-[rgb(68,51,255,0.8)] relative"
+          class="teamHolder w-[20px] h-[20px] flex justify-center items-center rounded-md p-4 text-[#615ced] hover:bg-[rgb(68,51,255,0.1)] focus:!text-[rgb(68,51,255,0.8)] relative"
         >
           <TeamOutlined />
           <div
             v-show="activeTooltip === 'team'"
-            class="flex flex-col justify-start items-start teamPopup gap-2 z-30 bg-white shadow-[0_0_15px_-3px_rgb(0,0,0,0.1)] p-3 mt-1 rounded-md absolute top-full right-0 w-[150px]"
+            class="flex flex-col justify-start items-start teamPopup gap-2 z-30 bg-white shadow-[0_0_15px_-3px_rgb(0,0,0,0.1)] p-3 mt-1 rounded-md absolute top-full right-0 w-[200px]"
             @mouseenter="cancelHide('team')"
             @mouseleave="toggleTooltip('team', false)"
           >
-            <span class="font-semibold text-gray-600">发言人识别中</span>
-            <div
-              class="w-full h-[80px] flex flex-col justify-center items-center gap-2 text-gray-600"
-            >
-              <SmileOutlined
-                class="text-[40px] !text-white rounded-full bg-gradient-to-br from-purple-500 to-red-200"
-              />
-              <span>发言人1</span>
+            <div class="w-full flex items-center justify-between">
+              <span class="font-semibold text-gray-700">发言人区分已开启</span>
+              <div
+                class="text-[#615ced] bg-[#615ced33] px-2 rounded-2xl text-xs"
+              >
+                体验中
+              </div>
             </div>
+
+            <span class="text-gray-600 text-xs text-start"
+              >通义支持自动区分发言人，识别结果不会覆盖你已经编辑的发言人信息。识别过程中不会存储任何声音特征信息。</span
+            >
+            <div class="w-full border border-gray-200"></div>
+            <p class="text-gray-500 text-xs">
+              已选择发言人数 <span class="text-[#615ced]">智能区分</span>
+            </p>
+          </div>
+        </button>
+
+        <!-- AI按钮 -->
+        <button
+          @mouseenter="toggleTooltip('ai', true)"
+          @mouseleave="toggleTooltip('ai', false)"
+          class="teamHolder w-[20px] h-[20px] flex justify-center items-center rounded-md p-4 text-[#615ced] hover:bg-[rgb(68,51,255,0.1)] focus:!text-[rgb(68,51,255,0.8)] relative"
+        >
+          <EditOutlined />
+          <div
+            v-show="activeTooltip === 'ai'"
+            class="flex flex-col justify-start items-start teamPopup gap-2 z-30 bg-white shadow-[0_0_15px_-3px_rgb(0,0,0,0.1)] p-3 mt-1 rounded-md absolute top-full right-0 w-[250px]"
+            @mouseenter="cancelHide('ai')"
+            @mouseleave="toggleTooltip('ai', false)"
+          >
+            <div class="w-full flex items-center justify-between">
+              <span class="font-semibold text-gray-700">AI改写</span>
+            </div>
+
+            <span class="text-gray-600 text-xs text-start"
+              >在保留原文要点内容基础上，将原文内容进行精简和改写。</span
+            >
+            <div
+              class="w-full flex items-center justify-between text-gray-500 text-xs"
+            >
+              <span>显示内容</span>
+              <input type="radio" name="contentShown" /><span>改写结果</span>
+              <input type="radio" name="contentShown" /><span
+                >原文和改写结果</span
+              >
+            </div>
+            <button class="bg-[#615ced] rounded-2xl w-full p-[4px] text-white">
+              立即体验
+            </button>
           </div>
         </button>
       </div>
@@ -262,6 +304,7 @@ import {
   CheckOutlined,
   DownOutlined,
   SmileOutlined,
+  EditOutlined,
 } from "@ant-design/icons-vue";
 
 const activeTooltip = ref(null);

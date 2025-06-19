@@ -3,7 +3,9 @@
     <div class="w-full flex flex-col justify-center items-center gap-2">
       <div class="w-full flex justify-between items-center">
         <div class="flex justify-start items-center text-gray-500 gap-2">
-          <SmileOutlined class="text-xl" />
+          <SmileOutlined
+            class="text-[30px] !text-white rounded-full bg-gradient-to-br from-blue-500 to-green-300"
+          />
           <span>发言人识别中</span>
           <span> 00:00</span>
         </div>
