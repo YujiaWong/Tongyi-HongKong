@@ -10,29 +10,69 @@
           </router-link>
           <span class="text-lg">2025-06-10 10:49 记录</span>
         </div>
-        <div class="flex items-center gap-4">
-          <button
-            class="w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
+        <div class="flex items-center gap-4 relative">
+          <div
+            ref="ellipsisHolder"
+            @mouseenter="enterEllipsisHolder"
+            @mouseleave="leaveEllipsisHolder"
           >
-            <EllipsisOutlined
-              class="!text-gray-600 pb-2 hover:!text-[#615ced]"
-            />
-          </button>
+            <button
+              class="w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
+            >
+              <EllipsisOutlined
+                class="!text-gray-600 pb-2 hover:!text-[#615ced]"
+              />
+            </button>
+            <div
+              v-if="showEllipsisContent"
+              ref="ellipsisContent"
+              class="w-[150px] shadow-[0_0_10px_3px_rgb(0,0,0,0.1)] bg-white rounded-xl absolute top-[45px] left-0 p-1"
+            >
+              <button
+                class="w-full p-2 flex justify-start items-center gap-2 rounded-md hover:bg-[#615ced33] mb-1"
+              >
+                <VerticalLeftOutlined />
+                <span>移动</span>
+              </button>
+              <hr />
+              <button
+                class="w-full p-2 flex justify-start items-center gap-2 rounded-md hover:bg-red-100 mt-1"
+              >
+                <DeleteOutlined class="!text-red-500" />
+                <span class="text-red-500">删除</span>
+              </button>
+            </div>
+          </div>
           <button
-            class="w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
+            class="starBtn w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
           >
             <StarOutlined class="!text-gray-600 pb-2 hover:!text-[#615ced]" />
           </button>
+          <div
+            class="starPopOut p-2 bg-black text-white rounded-md absolute top-[45px] left-[55px]"
+          >
+            收藏
+          </div>
           <button
-            class="w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
+            class="saveBtn w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
           >
             <SaveOutlined class="!text-gray-600 pb-2 hover:!text-[#615ced]" />
           </button>
+          <div
+            class="savePopOut p-2 bg-black text-white rounded-md absolute top-[45px] left-[110px]"
+          >
+            保存
+          </div>
           <button
-            class="w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
+            class="shareBtn w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
           >
             <SendOutlined class="!text-gray-600 pb-2 hover:!text-[#615ced]" />
           </button>
+          <div
+            class="sharePopOut p-2 bg-black text-white rounded-md absolute top-[45px] left-[165px]"
+          >
+            分享
+          </div>
           <button
             class="flex justify-center items-center gap-2 bg-[#615ced] text-white text-[16px] p-[7px] rounded-3xl px-6"
           >
@@ -47,7 +87,7 @@
         >
           <VoiceToTextBox />
           <div
-            class="w-full flex-1 overflow-y-auto flex flex-col gap-5 h-[600px]"
+            class="w-full flex-1 overflow-y-auto flex flex-col gap-1 h-[600px]"
           >
             <Speaker />
           </div>
@@ -83,10 +123,13 @@
               笔记
             </button>
           </div>
-          <div class="overflow-y-auto w-full flex-1">
+          <div class="overflow-y-auto w-full h-full flex-1">
             <RichText v-show="toggleIntro === 3" />
             <EfficiencyIntro v-show="toggleIntro === 1" />
-            <MindMap v-show="toggleIntro === 2" />
+            <MindMap
+              v-show="toggleIntro === 2"
+              :isVisible="toggleIntro === 2"
+            />
           </div>
         </div>
       </div>
@@ -102,6 +145,8 @@ import {
   StarOutlined,
   SaveOutlined,
   SendOutlined,
+  VerticalLeftOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons-vue";
 import Speaker from "../components/recording/Speaker.vue";
 import SpeakingBox from "../components/recording/SpeakingBox.vue";
@@ -116,6 +161,20 @@ import EfficiencyIntro from "../components/efficiency/EfficiencyIntro.vue";
 
 let toggleIntro = ref(1); //true为导读intro，false为笔记note
 let togglePause = ref(false); //false为录音中，true为暂停
+const ellipsisContent = ref(null);
+const ellipsisHolder = ref(null);
+let showEllipsisContent = ref(false);
+let ellipsisTimer = null;
+function enterEllipsisHolder() {
+  showEllipsisContent.value = true;
+  clearTimeout(ellipsisTimer);
+}
+function leaveEllipsisHolder() {
+  ellipsisTimer = setTimeout(() => {
+    showEllipsisContent.value = false;
+  }, 500);
+}
+
 function handleToggleNote() {
   toggleIntro.value = 3;
 }
@@ -125,9 +184,6 @@ function handleToggleBrainDrawing() {
 function handleToggleIntro() {
   toggleIntro.value = 1;
 }
-// function handleTogglePause() {
-//   togglePause.value = !togglePause.value;
-// }
 
 const imageUrl =
   "https://img.alicdn.com/imgextra/i1/O1CN01AV7f1E1kwAtJHELpc_!!6000000004747-2-tps-5760-64.png";
@@ -198,5 +254,24 @@ function handleUnShowCloseRecording() {
   height: 64px;
   background-repeat: no-repeat;
   background-size: 5760px 64px; /* 原图尺寸 */
+}
+
+.sharePopOut {
+  display: none;
+}
+.starPopOut {
+  display: none;
+}
+.savePopOut {
+  display: none;
+}
+.shareBtn:hover + .sharePopOut {
+  display: block;
+}
+.starBtn:hover + .starPopOut {
+  display: block;
+}
+.saveBtn:hover + .savePopOut {
+  display: block;
 }
 </style>

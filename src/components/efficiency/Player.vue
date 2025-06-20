@@ -1,7 +1,7 @@
 <template>
   <div
     id="Player"
-    class="audio-player w-full flex items-center justify-between"
+    class="audio-player w-full h-[60px] flex items-center justify-between"
   >
     <button @click="skipBackward">
       <UndoOutlined class="!text-[#615ced] text-lg" />

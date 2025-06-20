@@ -24,7 +24,14 @@
         <div
           class="flex justify-between items-center text-gray-400 text-sm p-2 py-5 border-t border-t-gray-200 relative hover:bg-[rgb(68,51,255,0.05)]"
         >
-          <span class="flex-[6]">{{ item.file }}</span>
+          <router-link
+            to="efficiency"
+            class="flex-[6] text-left text-gray-400 hover:text-[#615ced]"
+          >
+            <button>
+              {{ item.file }}
+            </button>
+          </router-link>
           <span class="flex-[3]">{{ item.details }}</span>
           <span class="flex-[2]">{{ item.type }}</span>
           <span class="flex-[2]">{{ item.duration }}</span>

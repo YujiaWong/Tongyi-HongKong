@@ -1,5 +1,5 @@
 <template>
-  <div id="Speaker" class="w-full">
+  <div id="Speaker" class="w-full pt-4">
     <div v-for="(item, index) in content" key="index" class="mt-4">
       <div class="w-full flex flex-col justify-start items-start gap-2">
         <div class="holder w-full flex justify-between items-center">
@@ -15,27 +15,47 @@
               <EditOutlined />
             </button>
           </div>
-          <div class="fourIcons flex justify-start items-center gap-4">
-            <button>
+          <div class="fourIcons flex justify-start items-center gap-4 relative">
+            <button class="importantBtn">
               <PushpinOutlined
                 class="bg-blue-300 p-1 rounded-full !text-white text-xs"
               />
             </button>
-            <button>
+            <div
+              class="importantContent bg-gray-700 text-white rounded-md p-2 text-xs absolute bottom-6 left-[-25px]"
+            >
+              标记为重点
+            </div>
+            <button class="questionBtn">
               <QuestionOutlined
                 class="bg-pink-300 p-1 rounded-full !text-white text-xs"
               />
             </button>
-            <button>
+            <div
+              class="questionContent bg-gray-700 text-white rounded-md p-2 text-xs absolute bottom-6 left-[5px]"
+            >
+              标记为问题
+            </div>
+            <button class="waitingBtn">
               <CheckOutlined
                 class="bg-yellow-300 p-1 rounded-full !text-white text-xs"
               />
             </button>
-            <button>
+            <div
+              class="waitingContent bg-gray-700 text-white rounded-md p-2 text-xs absolute bottom-6 right-[10px]"
+            >
+              标记为待办
+            </div>
+            <button class="removeBtn">
               <CloseOutlined
                 class="bg-gray-300 p-1 rounded-full !text-white text-xs"
               />
             </button>
+            <div
+              class="removeContent bg-gray-700 text-white rounded-md p-2 text-xs absolute bottom-6 right-[0px]"
+            >
+              清除标记
+            </div>
           </div>
         </div>
 
@@ -106,6 +126,30 @@ onMounted(() => {
 }
 .editNameBtn {
   opacity: 0;
+}
+.importantContent {
+  display: none;
+}
+.importantBtn:hover + .importantContent {
+  display: block;
+}
+.waitingContent {
+  display: none;
+}
+.waitingBtn:hover + .waitingContent {
+  display: block;
+}
+.removeContent {
+  display: none;
+}
+.removeBtn:hover + .removeContent {
+  display: block;
+}
+.questionContent {
+  display: none;
+}
+.questionBtn:hover + .questionContent {
+  display: block;
 }
 .holder:hover .editNameBtn {
   opacity: 100;
