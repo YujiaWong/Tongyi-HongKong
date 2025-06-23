@@ -1,5 +1,5 @@
 <template>
-  <div id="efficiency" class="w-screen h-full relative">
+  <div id="efficiency" class="w-screen h-full relative min-w-[1000px]">
     <div class="w-full h-full flex flex-col justify-center items-center">
       <div
         class="w-full h-[60px] flex justify-between items-center px-6 border-b border-b-gray-200 bg-gray-50"

@@ -62,7 +62,7 @@
         <!-- Auto-resizing textarea -->
         <textarea
           v-model="content[index]"
-          class="w-full p-4 rounded-lg outline-none focus:border-2 focus:border-purple-100 transition-all duration-100 resize-none"
+          class="w-full p-4 pb-6 rounded-lg outline-none focus:border-2 focus:border-purple-100 transition-all duration-100 resize-none"
           :style="{
             height: `${textareaHeights[index]}px`,
             minHeight: '60px',
