@@ -8,7 +8,12 @@
           <router-link to="/live">
             <ToHomepageBtn />
           </router-link>
-          <span class="text-lg">2025-06-10 10:49 记录</span>
+          <input
+            type="text"
+            v-model="title"
+            class="ch-width-input text-lg outline-none p-1 rounded-lg bg-transparent w-auto text-center resize-none hover:border hover:border-[#615ced] focus:border focus:border-[#615ced] focus:shadow-[0_0_3px_2px_rgb(72,72,237,0.2)]"
+            :style="{ width: `${Math.max(title.length, 10)}ch` }"
+          />
         </div>
         <div class="flex items-center gap-4 relative">
           <div
@@ -64,6 +69,7 @@
             保存
           </div>
           <button
+            @click="handleShowSHareBoard"
             class="shareBtn w-[40px] h-[40px] rounded-full border bg-white border-gray-200 hover:bg-[#615ced30]"
           >
             <SendOutlined class="!text-gray-600 pb-2 hover:!text-[#615ced]" />
@@ -73,11 +79,11 @@
           >
             分享
           </div>
-          <button
-            class="flex justify-center items-center gap-2 bg-[#615ced] text-white text-[16px] p-[7px] rounded-3xl px-6"
-          >
-            <DownloadOutlined /><span>导出</span>
-          </button>
+          <OutputBox />
+          <ShareBoard
+            v-if="showShareBoard"
+            class="absolute top-full right-0 mt-1"
+          />
         </div>
       </div>
       <div class="flex-1 w-full flex">
@@ -158,6 +164,8 @@ import CloseConfirm from "../components/wanxiang/CloseConfirm.vue";
 import MindMap from "../components/efficiency/MindMap.vue";
 import Player from "../components/efficiency/Player.vue";
 import EfficiencyIntro from "../components/efficiency/EfficiencyIntro.vue";
+import OutputBox from "../components/efficiency/OutputBox.vue";
+import ShareBoard from "../components/efficiency/ShareBoard.vue";
 
 let toggleIntro = ref(1); //true为导读intro，false为笔记note
 let togglePause = ref(false); //false为录音中，true为暂停
@@ -165,6 +173,8 @@ const ellipsisContent = ref(null);
 const ellipsisHolder = ref(null);
 let showEllipsisContent = ref(false);
 let ellipsisTimer = null;
+let title = ref("2025-06-17 13:53 记录");
+
 function enterEllipsisHolder() {
   showEllipsisContent.value = true;
   clearTimeout(ellipsisTimer);
@@ -238,9 +248,20 @@ function handleShowCloseRecording() {
 function handleUnShowCloseRecording() {
   showCloseRecordingPopOut.value = false;
 }
+//展示share分享板
+let showShareBoard = ref(false);
+function handleShowSHareBoard() {
+  showShareBoard.value = !showShareBoard.value;
+}
 </script>
 
 <style scoped>
+.ch-width-input {
+  @apply text-lg p-1 rounded-lg bg-transparent text-center 
+         border border-transparent min-w-[10ch];
+  transition: width 0.1s;
+}
+
 .circle-viewport {
   width: 64px;
   height: 64px;
@@ -273,5 +294,9 @@ function handleUnShowCloseRecording() {
 }
 .saveBtn:hover + .savePopOut {
   display: block;
+}
+
+input[type="checkbox"] {
+  accent-color: #615ced;
 }
 </style>
