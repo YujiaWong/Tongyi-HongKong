@@ -1,7 +1,7 @@
 <template>
-  <div id="chatItems" class="w-full">
+  <div id="chatItems" class="w-full overflow-y-auto">
     <div class="w-[210px] h-full flex flex-col justify-start items-start p-4">
-      <p class="text-gray-500">当天</p>
+      <p class="text-gray-500">置顶</p>
       <div
         class="w-[210px] flex flex-col justify-start items-start text-sm gap-4"
       >
@@ -112,5 +112,19 @@ const chats = ref([
   { question: "前端react和vue", showEditPanel: false },
   { question: "AI的未来发展趋势", showEditPanel: false },
   { question: "<div>", showEditPanel: false },
+  { question: "如何构建高可用的微服务架构", showEditPanel: false },
+  { question: "量子计算对密码学的影响", showEditPanel: false },
+  { question: "Web3.0时代的产品设计方法论", showEditPanel: false },
+  { question: "大数据分析在精准营销中的应用", showEditPanel: false },
+  { question: "5G技术将如何改变物联网发展", showEditPanel: false },
+  { question: "低代码平台的企业级应用实践", showEditPanel: false },
+  { question: "边缘计算与云计算的协同发展", showEditPanel: false },
+  { question: "数字化转型中的组织架构调整", showEditPanel: false },
+  { question: "区块链技术在金融领域的应用前景", showEditPanel: false },
+  { question: "如何评估机器学习模型的业务价值？", showEditPanel: false },
+  { question: "Serverless架构的优缺点分析", showEditPanel: false },
+  { question: "TypeScript在大规模项目中的最佳实践", showEditPanel: false },
+  { question: "元宇宙技术落地的三大挑战", showEditPanel: false },
+  { question: "自动化测试在DevOps中的集成方案", showEditPanel: false },
 ]);
 </script>

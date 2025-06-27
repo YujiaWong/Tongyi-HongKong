@@ -5,6 +5,8 @@
     >
       <UserChatBox />
       <AIChatBox />
+      <UserChatBox />
+      <AIChatBoxDeepThinking />
     </div>
   </div>
 </template>
@@ -13,4 +15,5 @@
 import { SlackOutlined } from "@ant-design/icons-vue";
 import AIChatBox from "./AIChatBox.vue";
 import UserChatBox from "./UserChatBox.vue";
+import AIChatBoxDeepThinking from "./AIChatBoxDeepThinking.vue";
 </script>

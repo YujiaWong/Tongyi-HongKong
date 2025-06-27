@@ -12,7 +12,7 @@
           <div class="flex flex-row gap-3 justify-center items-center">
             <div>
               <SmileFilled
-                class="text-3xl !text-purple-500 border-2 border-white rounded-full"
+                class="text-3xl !text-[#615ced] border-2 border-white rounded-full"
               />
             </div>
             <div class="flex flex-col gap-1">
@@ -94,6 +94,6 @@ import {
 }
 .hoverWrapper:hover .hoverContent {
   display: block;
-  background: linear-gradient(175deg, #e6d0fb 10%, #ffffff 30%);
+  background: linear-gradient(175deg, #c4c2fa 10%, #ffffff 30%);
 }
 </style>

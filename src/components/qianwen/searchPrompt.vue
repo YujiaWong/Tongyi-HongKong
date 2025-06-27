@@ -12,11 +12,11 @@
       <span
         class="text-[18px] text-gray-600 hover:text-[rgb(72,72,237)] transition-colors duration-300"
       >
-        <SearchOutlined />
+        <SearchOutlined class="pr-1" />
       </span>
       <form>
         <input
-          placeholder="搜索历史记录"
+          placeholder="搜索指令"
           ref="searchInput"
           type="text"
           @click.stop
@@ -44,10 +44,10 @@ function handleClick() {
   input.style.transition = "width 0.3s ease, opacity 0.3s ease";
 
   if (count.value % 2 !== 0 || document.activeElement === input) {
-    button.style.width = "200px";
+    button.style.width = "320px";
     input.style.display = "inline-block";
     input.style.opacity = "1";
-    input.style.width = "200px";
+    input.style.width = "320px";
   } else {
     button.style.width = "40px";
     input.style.opacity = "0";

@@ -40,7 +40,6 @@
             class="flex-1 flex flex-col justify-between items-center overflow-hidden"
           >
             <ChatItems class="flex-1" />
-
             <ManageChat class="h-[50px] mb-2" />
           </div>
           <button
@@ -79,7 +78,6 @@
               class="flex-[2] w-[64%] flex flex-col justify-between items-center gap-2"
             >
               <div class="flex flex-col justify-start items-start gap-2">
-                <SixBtns />
                 <SearchBar v-model:homePageMode="homePageMode" />
               </div>
               <p class="text-[10px] text-gray-400">
