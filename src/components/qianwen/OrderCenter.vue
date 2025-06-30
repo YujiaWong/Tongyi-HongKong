@@ -16,6 +16,7 @@
       :closable="false"
       placement="right"
       @after-open-change="afterOpenChange"
+      :mask="false"
     >
       <div>
         <div class="flex justify-between">
@@ -59,9 +60,85 @@
               }}</span>
             </button>
           </div>
+          <div
+            v-show="currentPromptGroup.length === 0"
+            class="w-full flex flex-col justify-center items-center mt-[100px]"
+          >
+            <img
+              src="https://img.alicdn.com/imgextra/i2/O1CN01lpG2h51SSG8jrOtTs_!!6000000002245-2-tps-88-88.png"
+            />
+            <div class="flex">
+              <div>暂无自定义指令，</div>
+              <button class="text-[#615ced]" @click="handleshowPropmtBox">
+                立即添加
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </a-drawer>
+    <div
+      class="absolute top-0 left-0 w-screen h-screen z-50 bg-[rgb(0,0,0,0.2)] flex justify-center items-center"
+      v-if="showPromptBox"
+    >
+      <div
+        class="w-[600px] h-[500px] rounded-2xl bg-white flex flex-col p-4 gap-4 ]"
+      >
+        <div class="h-[30px] flex justify-between items-start">
+          <span class="font-semibold">新建指令</span>
+          <button
+            class="text-gray-500 w-[30px] h-[30px] rounded-lg hover:bg-gray-100 hover:text-black flex items-center justify-center"
+            @click="handleUnshowPropmtBox"
+          >
+            <CloseOutlined />
+          </button>
+        </div>
+        <!-- <input
+          type="text"
+          class="w-full h-8 border border-gray-200 rounded-md outline-none px-2"
+        /> -->
+        <div
+          class="h-[32px] border border-200 rounded-md hover:border-[#615ced] focus:border-[#615ced] hover:shadow-[0_0_3px_3px_rgb(72,72,237,0.1)] focus:shadow-[0_0_3px_3px_rgb(72,72,237,0.1)]"
+        >
+          <a-input
+            v-model:value="value1"
+            show-count
+            :maxlength="30"
+            placeholder="请输入指令标题"
+            input-class="custom-focus"
+            :bordered="false"
+          />
+        </div>
+        <!-- <textarea
+          class="w-full flex-1 border border-gray-200 outline-none resize-none rounded-md px-2"
+        ></textarea> -->
+        <div
+          class="flex-1 border border-200 rounded-md pb-6 pr-2 hover:border-[#615ced] focus:border-[#615ced] hover:shadow-[0_0_3px_3px_rgb(72,72,237,0.1)] focus:shadow-[0_0_3px_3px_rgb(72,72,237,0.1)]"
+        >
+          <a-textarea
+            v-model:value="value2"
+            show-count
+            :maxlength="10000"
+            placeholder="请输入具体的指令内容，例如：帮我提炼出这篇文档的中心思想"
+            :bordered="false"
+            class="h-full !resize-none"
+            :style="{ resize: 'none' }"
+          />
+        </div>
+
+        <div class="flex justify-end items-center gap-2">
+          <button
+            @click="handleUnshowPropmtBox"
+            class="w-[80px] border border-gray-200 rounded-2xl p-1 hover:bg-[#615ced44] hover:text-[#615ced]"
+          >
+            取消
+          </button>
+          <button class="w-[80px] rounded-2xl p-1 bg-[#615ced] text-white">
+            保存
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -111,24 +188,7 @@ const contentSelect = ref({
       desc: "让您的简历脱颖而出：请优化我的Java开发工程师简历",
     },
   ],
-  zidingyi: [
-    {
-      title: "小红书文案生成",
-      desc: "轻松打造爆款文案：帮我写一篇关于夏日护肤的种草文案",
-    },
-    {
-      title: "学术降重工具",
-      desc: "智能改写论文内容：这段文献综述需要降低重复率",
-    },
-    {
-      title: "短视频脚本创作",
-      desc: "30秒快速生成短视频分镜：科普类视频关于黑洞现象",
-    },
-    {
-      title: "多语言翻译官",
-      desc: "精准翻译+文化适配：把这篇中文产品说明转换成地道的英文",
-    },
-  ],
+  zidingyi: [],
   bangonzhuli: [
     {
       title: "PPT大纲生成",
@@ -209,7 +269,24 @@ const contentSelect = ref({
       desc: "解读财经数据：分析最近三个月新能源板块走势",
     },
   ],
-  chuangyiwenan: [],
+  chuangyiwenan: [
+    {
+      title: "小红书文案生成",
+      desc: "轻松打造爆款文案：帮我写一篇关于夏日护肤的种草文案",
+    },
+    {
+      title: "学术降重工具",
+      desc: "智能改写论文内容：这段文献综述需要降低重复率",
+    },
+    {
+      title: "短视频脚本创作",
+      desc: "30秒快速生成短视频分镜：科普类视频关于黑洞现象",
+    },
+    {
+      title: "多语言翻译官",
+      desc: "精准翻译+文化适配：把这篇中文产品说明转换成地道的英文",
+    },
+  ],
   xuexizhushou: [
     {
       title: "法律文书助手",
@@ -245,7 +322,6 @@ const contentSelect = ref({
 });
 
 let currentPromptGroup = ref(contentSelect.value.quanbu);
-
 function choosePromptBtn(event) {
   const text = event.currentTarget.innerText;
   const map = {
@@ -289,6 +365,18 @@ const scrollToCenter = (index) => {
     });
   });
 };
+//新建指令弹窗的input和textarea
+const value1 = ref("");
+const value2 = ref("");
+
+//显示新建prompt指令弹窗
+let showPromptBox = ref(false);
+function handleshowPropmtBox() {
+  showPromptBox.value = true;
+}
+function handleUnshowPropmtBox() {
+  showPromptBox.value = false;
+}
 </script>
 
 <style scoped>
@@ -306,5 +394,9 @@ const scrollToCenter = (index) => {
 }
 .overflow-y-auto::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
+}
+
+:deep(.ant-input-textarea textarea) {
+  resize: none;
 }
 </style>

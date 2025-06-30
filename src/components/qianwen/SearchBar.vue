@@ -94,7 +94,10 @@
               Markdown / EPUB / Mobi / txt
             </div>
           </div>
-
+          <input type="file" id="fileInput" style="display: none" />
+          <button onclick="document.getElementById('fileInput').click()">
+            选择文件
+          </button>
           <div class="relative">
             <button
               class="uploadFileBtn flex items-center gap-2 w-full rounded-md hover:bg-[#615ced11] p-2 px-4"
