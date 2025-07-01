@@ -47,7 +47,9 @@
         >
           <div class="flex items-center justify-start gap-2">
             <ExclamationCircleOutlined class="!text-red-500" />
-            <span class="font-semibold">确认删除这 1 条对话记录吗？</span>
+            <span class="font-semibold text-[16px]"
+              >确认删除这 1 条对话记录吗？</span
+            >
           </div>
           <span class="text-gray-500 ml-6"
             >删除后对话记录无法恢复和找回，请谨慎操作</span

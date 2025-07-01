@@ -26,7 +26,10 @@
         <div class="w-full h-[80px] overflow-hidden">
           <div class="flex w-full gap-2 py-4">
             <SearchPrompt v-model:showNewChat="showNewChat" />
-            <NewPropmt :showNewChat="showNewChat" />
+            <NewPropmt
+              :showNewChat="showNewChat"
+              v-model:showPromptBox="showPromptBox"
+            />
           </div>
         </div>
         <div

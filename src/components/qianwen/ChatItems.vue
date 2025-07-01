@@ -20,6 +20,7 @@
               @click="focusDiv(index)"
               class="w-[180px] rounded-l-xl flex justify-between items-center p-2"
             >
+              <!-- 并行一个input标签，变量x控制2选1渲染，把方法传给editchat，里面点击重命名按钮来激活xToggle? -->
               <span class="truncate">{{ item.question }}</span>
             </button>
             <button
