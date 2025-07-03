@@ -12,9 +12,15 @@
     "@ant-design/icons-vue": "^6.1.0",
     "@antv/g6": "^5.0.48",
     "ant-design-vue": "^3.2.15",
+    "dompurify": "^3.2.6",
+    "highlight.js": "^11.11.1",
+    "markdown-it": "^14.1.0",
+    "markdown-it-highlightjs": "^4.2.0",
     "markmap": "^0.6.1",
+    "openai": "^5.8.2",
     "quill": "^2.0.3",
     "vue": "^3.2.41",
+    "vue-markdown-it": "^0.9.4",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {

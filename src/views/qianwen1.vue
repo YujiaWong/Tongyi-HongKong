@@ -1,5 +1,5 @@
 <template>
-  <div id="qianwen" class="m-0 p-0">
+  <div id="qianwen1" class="m-0 p-0">
     <div
       class="bg-gradient-to-r from-[rgb(68,51,255,0.8)] to-[rgb(68,51,255,0.3)] w-screen h-screen flex justify-start items-center p-2"
     >
@@ -72,13 +72,17 @@
                 <ChatAreaFunctionsPanel v-if="homePageMode" />
               </div>
 
-              <ChatAreaAIChatting v-if="!homePageMode" />
+              <ChatAreaAIChatting v-if="!homePageMode" :messages="messages" />
             </div>
             <div
               class="flex-[2] w-[64%] flex flex-col justify-between items-center gap-2"
             >
               <div class="flex flex-col justify-start items-start gap-2">
-                <SearchBar v-model:homePageMode="homePageMode" />
+                <SearchBar
+                  :loading="loading"
+                  v-model:homePageMode="homePageMode"
+                  @send="handleSend"
+                />
               </div>
               <p class="text-[10px] text-gray-400">
                 服务所生成的所有内容由人工智能模型所生成，内容的准确性和完整性无法保证，不代表我们的态度和观点
@@ -109,9 +113,11 @@ import ChatAreaHeader from "../components/qianwen/ChatAreaHeader.vue";
 import SearchBar from "../components/qianwen/SearchBar.vue";
 import ChatAreaFunctionsPanel from "../components/qianwen/ChatAreaFunctionsPanel.vue";
 
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import SixBtns from "../components/qianwen/SixBtns.vue";
 import ChatAreaAIChatting from "../components/qianwen/ChatAreaAIChatting.vue";
+import VueMarkdownIt from "vue-markdown-it";
+import MarkdownIt from "markdown-it";
 
 let showNewChat = ref(true);
 let homePageMode = ref(true);
@@ -125,6 +131,59 @@ function handleClick() {
     chatHistory.value.style.width = "250px";
   } else {
     chatHistory.value.style.width = "0px";
+  }
+}
+
+const messages = ref([]);
+const loading = ref(false);
+
+/* 统一滚动到底 */
+function scrollBottom() {
+  document
+    .querySelector(".chatArea")
+    ?.scrollTo({ top: 999999, behavior: "smooth" });
+}
+
+/* ⭐ 核心：收到用户文本后统一处理 */
+async function handleSend(text) {
+  if (!text.trim()) return;
+  messages.value.push({ role: "user", content: text });
+
+  loading.value = true;
+  await nextTick();
+  scrollBottom();
+
+  try {
+    const resp = await fetch(
+      "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_DASHSCOPE_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "qwen-plus",
+          messages: messages.value,
+        }),
+      }
+    );
+
+    const data = await resp.json();
+    console.log("AI 回复：", data);
+    console.log("AI 回复内容：", data.choices?.[0]?.message?.content);
+    const reply = data.choices?.[0]?.message?.content ?? "（无回复）";
+    messages.value.push({ role: "assistant", content: reply });
+  } catch (e) {
+    console.error(e);
+    messages.value.push({
+      role: "assistant",
+      content: "❗️出错了，请稍后再试。",
+    });
+  } finally {
+    loading.value = false;
+    await nextTick();
+    scrollBottom();
   }
 }
 </script>

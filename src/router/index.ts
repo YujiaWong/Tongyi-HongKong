@@ -59,6 +59,11 @@ const routes = [
     name: "efficiency",
     component: () => import("../views/efficiency.vue"),
   },
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("../views/test.vue"),
+  },
 ];
 
 const router = createRouter({

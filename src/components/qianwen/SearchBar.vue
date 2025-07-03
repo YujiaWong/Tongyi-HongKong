@@ -176,15 +176,15 @@
         </div>
       </div>
     </div>
-    <form class="w-[95%] h-[100%]">
+    <form class="w-[95%] h-[100%]" @submit.prevent="emitSend">
       <input
         v-model="inputValue"
         type="text"
-        class="w-[100%] h-[100%] outline-none"
+        class="w-[100%] h-[100%] outline-none text-[16px]"
         placeholder="遇事不决问通义"
       />
     </form>
-    <button @click="toggleToChatMode">
+    <button :disabled="!hasInput || loading" @click="emitSend">
       <SendOutlined
         class="text-lg !text-white bg-[#d6d5de] rounded-full w-10 h-10 pt-[9px] pl-[2px]"
         :rotate="320"
@@ -211,9 +211,9 @@ import {
   CloseOutlined,
 } from "@ant-design/icons-vue";
 
-import { ref, computed } from "vue";
+import { ref, computed, nextTick } from "vue";
 import OrderCenter from "./OrderCenter.vue";
-const inputValue = ref("");
+const inputValue = ref(""); //-----输入的文本-------
 const hasInput = computed(() => {
   return inputValue.value.trim().length > 0;
 });
@@ -248,9 +248,11 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  loading: Boolean,
 });
+const emit = defineEmits(["update:homePageMode", "send"]);
 
-const emit = defineEmits(["update:homPageMode"]);
+//const emit = defineEmits(["update:homPageMode"]);
 //从homepage切换到对话模式
 function toggleToChatMode() {
   emit("update:homePageMode", false);
@@ -278,6 +280,14 @@ const afterOpenChange = (bool) => {
 const showDrawer = () => {
   open.value = true;
 };
+
+/* ---------- 方法 ---------- */
+function emitSend() {
+  if (!hasInput.value) return;
+  emit("update:homePageMode", false); // 切到聊天模式
+  emit("send", inputValue.value.trim()); // 把纯文本交给父盒子
+  inputValue.value = "";
+}
 </script>
 
 <style scoped>
