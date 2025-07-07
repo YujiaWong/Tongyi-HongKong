@@ -1,7 +1,7 @@
 <template>
   <div id="ChatAreaFunctionsPanel" class="w-full h-full">
     <div
-      class="w-full h-[600px] flex flex-col justify-start items-end gap-4 overflow-y-auto scrollBar-hide"
+      class="w-full h-[600px] flex flex-col justify-start items-end gap-4 overflow-y-auto scrollBar-hide pt-8"
     >
       <div
         class="w-full flex flex-col justify-start items-end gap-4"
@@ -15,20 +15,35 @@
           @mouseleave="handleUnshowPencil"
           v-if="item.role === 'user'"
         >
-          <div class="w-full flex flex-col rounded-xl p-4 py-3 bg-[#E0DFFF]">
+          <div
+            class="max-w-[900px] w-full flex flex-col items-end rounded-xl p-4 py-3 bg-[#E0DFFF]"
+          >
             <span class="text-[16px]">{{ item.content }}</span>
           </div>
           <div>
-            <button ref="pencil">
+            <button ref="pencil" class="editProblemBtn">
               <EditOutlined
                 class="text-md !text-gray-500 absolute top-1 left-full pl-2 hover:!text-[#615ced]"
               />
             </button>
-            <button>
+            <div
+              class="editProblem p-1 px-2 bg-[#615ced] text-white rounded-md w-[70px] absolute -top-8 -right-12"
+            >
+              编辑问题
+            </div>
+            <button
+              class="copyProblemBtn"
+              @click="copyToClipboard(item.content)"
+            >
               <CopyOutlined
                 class="text-md !text-gray-500 absolute top-7 left-full pl-2 hover:!text-[#615ced]"
               />
             </button>
+            <div
+              class="copyProblem p-1 px-2 bg-[#615ced] text-white rounded-md w-[70px] absolute -top-2 -right-12"
+            >
+              复制问题
+            </div>
           </div>
         </div>
 
@@ -129,9 +144,34 @@ const md = new MarkdownIt({
 const messagesHtml = computed(() =>
   (props.messages ?? []).map((m) => ({
     ...m,
-    html: DOMPurify.sanitize(md.render(m.content)), // 若不想防 XSS，去掉 DOMPurify
+    html: DOMPurify.sanitize(md.render(m.content)),
   }))
 );
+
+//复制到剪切板
+function copyToClipboard(text) {
+  navigator.clipboard
+    .writeText(text)
+    .then(function () {
+      alert("文本已成功复制到剪贴板");
+    })
+    .catch(function (err) {
+      console.error("无法复制文本: ", err);
+    });
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.copyProblem {
+  display: none;
+}
+.copyProblemBtn:hover + .copyProblem {
+  display: block;
+}
+.editProblem {
+  display: none;
+}
+.editProblemBtn:hover + .editProblem {
+  display: block;
+}
+</style>

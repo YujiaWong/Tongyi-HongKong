@@ -137,14 +137,14 @@ function handleClick() {
 const messages = ref([]);
 const loading = ref(false);
 
-/* 统一滚动到底 */
+//滚动到底
 function scrollBottom() {
   document
     .querySelector(".chatArea")
     ?.scrollTo({ top: 999999, behavior: "smooth" });
 }
 
-/* ⭐ 核心：收到用户文本后统一处理 */
+//发送信息，交互
 async function handleSend(text) {
   if (!text.trim()) return;
   messages.value.push({ role: "user", content: text });
