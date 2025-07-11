@@ -40,6 +40,11 @@ const routes = [
     component: () => import("../views/wanxiang.vue"),
   },
   {
+    path: "/wanxiang1/creation",
+    name: "Wanxiang1",
+    component: () => import("../views/wanxiang1.vue"),
+  },
+  {
     path: "/live",
     name: "live",
     component: () => import("../views/live.vue"),

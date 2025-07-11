@@ -1,8 +1,6 @@
 <template>
-  <div id="GeneratingArea">
-    <div
-      class="w-[1000px] h-[800px] shadow-lg rounded-3xl p-6 flex flex-col gap-2"
-    >
+  <div id="GeneratingArea" class="h-full overflow-hidden">
+    <div class="w-[1020px] h-full rounded-3xl p-6 flex flex-col gap-2 bg-white">
       <div class="flex justify-between items-center gap-4">
         <span class="p-1 px-2 bg-[#f3f2ff] text-[#6e5ced] rounded-2xl"
           >万象2.1 专业</span
@@ -148,7 +146,7 @@ import {
   YoutubeOutlined,
 } from "@ant-design/icons-vue";
 import { ref } from "vue";
-const pics = ["cat1.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg"];
+const pics = ["/cat1.jpg", "/cat2.jpg", "/cat3.jpg", "/cat4.jpg"];
 </script>
 
 <style scoped>

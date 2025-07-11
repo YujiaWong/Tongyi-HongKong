@@ -1,6 +1,6 @@
 <template>
   <div id="DrawingInfoBoard flex justify-start items-center">
-    <a-button type="primary" @click="showModal">DrawingInfo</a-button>
+    <a-button type="link" @click="showModal">.</a-button>
     <div v-if="visible" class="verticalBar fixed top-[80px] left-[190px]">
       <div
         v-for="(item, index) in pics"
